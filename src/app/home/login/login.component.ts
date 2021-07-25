@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
 
 @Component({
@@ -6,20 +8,31 @@ import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   usuario: string = '';
   senha: string = '';
-  constructor(private service: AutenticacaoService) {}
+  sub: Subscription | undefined;
+  constructor(
+    private service: AutenticacaoService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    if (this.sub) this.sub.unsubscribe();
+  }
+
   login() {
     console.log(this.usuario, this.senha);
-    this.service.autenticar(this.usuario, this.senha).subscribe(
+    this.sub = this.service.autenticar(this.usuario, this.senha).subscribe(
       (value) => {
-        console.log(value);
+        this.router.navigateByUrl('/animais');
       },
-      (err) => console.log(err)
+      (err) => console.log(err),
+      () => {
+        if (this.sub) this.sub.unsubscribe();
+      }
     );
   }
 }
