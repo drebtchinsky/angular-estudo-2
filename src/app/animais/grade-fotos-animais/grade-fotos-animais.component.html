@@ -3,11 +3,11 @@
 <div class="row">
   <div *ngFor="let animal of animais" class="col-4 ">
     <a [routerLink]="['/animais',animal.id]">
+      <app-cartao>
+        <app-animal [url]="animal.url" [descricao]="animal.description"></app-animal>
+        <i class="fa fa-heart-o fa-1x mr-2" aria-hidden="true"></i>
+        <i class="fa fa-comment-o fa-1x  mr-2 ml-2" aria-hidden="true"></i>
+      </app-cartao>
     </a>
-    <app-cartao>
-      <app-animal [url]="animal.url" [descricao]="animal.description"></app-animal>
-      <i class="fa fa-heart-o fa-1x mr-2" aria-hidden="true"></i>
-      <i class="fa fa-comment-o fa-1x  mr-2 ml-2" aria-hidden="true"></i>
-    </app-cartao>
   </div>
 </div>
