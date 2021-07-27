@@ -1,0 +1,8 @@
+<div class="card border-light text-center">
+  <h4 *ngIf="titulo" class="card-header">
+    {{titulo}}
+  </h4>
+  <div class="card-body text-justify">
+    <ng-content #conteudo></ng-content>
+  </div>
+</div>

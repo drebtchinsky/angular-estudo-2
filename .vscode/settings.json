@@ -3,7 +3,10 @@
         "Cabecalho",
         "Registre",
         "Rodape",
+        "conteudo",
         "decodifica",
+        "descricao",
+        "imgs",
         "usuario"
     ]
 }
