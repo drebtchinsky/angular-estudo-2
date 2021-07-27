@@ -2,7 +2,7 @@ import { AnimaisService } from './../animais.service';
 import { Animal } from './../animais';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalhe-animal',
@@ -15,11 +15,36 @@ export class DetalheAnimalComponent implements OnInit {
 
   constructor(
     private animaisService: AnimaisService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.animalId = this.activatedRoute.snapshot.params.animalId ?? 0;
     this.animal$ = this.animaisService.buscaPorId(this.animalId);
+  }
+
+  curtir() {
+    this.animaisService.curtir(this.animalId).subscribe(
+      (curtida) => {
+        if (curtida) {
+          this.animal$ = this.animaisService.buscaPorId(this.animalId);
+        }
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  excluir() {
+    this.animaisService.excluiAnimal(this.animalId).subscribe(
+      () => {
+        this.router.navigate(['/animais/']);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 }

@@ -8,6 +8,8 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+const API = environment.API_URL;
 
 @Injectable()
 export class AutenticacaoInterceptor implements HttpInterceptor {
@@ -20,7 +22,8 @@ export class AutenticacaoInterceptor implements HttpInterceptor {
     if (this.tokenService.possuiToken()) {
       const token = this.tokenService.retornaToken();
       const headers = new HttpHeaders().append('x-access-token', token);
-      request = request.clone({ headers });
+      const url = `${API}/${request.url}`;
+      request = request.clone({ headers, url });
     }
     return next.handle(request);
   }

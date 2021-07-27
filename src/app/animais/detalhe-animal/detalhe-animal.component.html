@@ -6,6 +6,9 @@
     <div class="col">
       <small>
         <p class="text-left break-word">{{animal.description}}</p>
+        <i (click)="curtir()" class="fa fa-heart-o fa-2x mr-2 pull-left" aria-hidden="true">{{animal.likes}}</i>
+        <i class="fa fa-comment-o fa-2x mr-2 pull-left" aria-hidden="true">{{animal.comments}}</i>
+        <i (click)="excluir()" class="fa fa-trash-o fa-2x mr-2 pull-left" aria-hidden="true"></i>
       </small>
     </div>
   </div>
